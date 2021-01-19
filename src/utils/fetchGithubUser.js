@@ -8,12 +8,12 @@ async function fetchGithubUser(userName, dispatch) {
   try {
     if (userName) {
       const response = await axios.get(`${BASEURL}${userName}`);
-      dispatch({ status: REQUEST_STATUS.RESOLVED, data: response.data });
+      dispatch({ type: REQUEST_STATUS.RESOLVED, data: response.data });
     } else {
-      dispatch({ status: REQUEST_STATUS.IDLE });
+      dispatch({ type: REQUEST_STATUS.IDLE });
     }
   } catch (err) {
-    dispatch({ status: REQUEST_STATUS.REJECTED, error: 'User not found' });
+    dispatch({ type: REQUEST_STATUS.REJECTED, error: 'User not found' });
   }
 }
 

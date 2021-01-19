@@ -9,11 +9,11 @@ import { REQUEST_STATUS } from './utils/utils';
 import useAsync from './utils/useAsync';
 
 const UserInfo = ({ userName }) => {
-  const initialRequestState = userName ? REQUEST_STATUS.PENDING : REQUEST_STATUS.IDLE;
+  const initialRequestStatus = userName ? REQUEST_STATUS.PENDING : REQUEST_STATUS.IDLE;
 
   const {
     status, error, data,
-  } = useAsync({ status: initialRequestState }, userName, fetchGithubUser);
+  } = useAsync({ status: initialRequestStatus }, userName, fetchGithubUser);
 
   switch (status) {
     case REQUEST_STATUS.IDLE:

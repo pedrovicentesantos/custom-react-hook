@@ -6,7 +6,7 @@ const REQUEST_STATUS = {
 };
 
 const reducer = (state, action) => {
-  switch (action.status) {
+  switch (action.type) {
     case REQUEST_STATUS.IDLE:
       return {
         status: REQUEST_STATUS.IDLE,
@@ -36,7 +36,7 @@ const reducer = (state, action) => {
       };
 
     default:
-      throw Error(`Unhandled status: ${action.status}`);
+      throw Error(`Unhandled status: ${action.type}`);
   }
 };
 
