@@ -61,7 +61,7 @@ const App = () => {
       <UserForm userName={userName} onSubmit={handleSubmit} />
       <hr />
       <div className="m-4">
-        <UserSection key={userName} onSelect={handleSelect} userName={userName} />
+        <UserSection onSelect={handleSelect} userName={userName} />
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ const UserView = ({ user }) => (
       />
     </div>
     <div className="text-center px-3 pb-6 pt-2">
-      <h3 className="text-black text-sm bold font-sans">{user.name}</h3>
+      <h3 className="text-black text-sm bold font-sans">{user.name || user.login}</h3>
       <p className="mt-2 font-sans font-light text-grey-dark">{user.bio}</p>
     </div>
     <div className="flex justify-center pb-3 text-grey-dark">

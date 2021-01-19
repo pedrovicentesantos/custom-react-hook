@@ -4,9 +4,9 @@ import Header from './Header';
 
 const UserForm = ({
   userName: externalUserName,
-  initialUserName = externalUserName || '',
   onSubmit,
 }) => {
+  const initialUserName = externalUserName || '';
   const [userName, setUserName] = useState(initialUserName);
 
   useEffect(() => {
