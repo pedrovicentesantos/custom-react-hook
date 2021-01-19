@@ -4,10 +4,10 @@ import REQUEST_STATUS from './utils';
 
 const BASEURL = 'https://api.github.com/users/';
 
-async function fetchGithubUser(name, dispatch) {
+async function fetchGithubUser(userName, dispatch) {
   try {
-    if (name) {
-      const response = await axios.get(`${BASEURL}${name}`);
+    if (userName) {
+      const response = await axios.get(`${BASEURL}${userName}`);
       dispatch({ status: REQUEST_STATUS.RESOLVED, data: response.data });
     } else {
       dispatch({ status: REQUEST_STATUS.IDLE });
