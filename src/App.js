@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import UserForm from './components/UserForm';
 import UserFallBack from './components/UserFallBack';
@@ -12,13 +12,8 @@ const UserInfo = ({ userName }) => {
   const initialRequestState = userName ? REQUEST_STATUS.PENDING : REQUEST_STATUS.IDLE;
 
   const {
-    status, error, data, runAsyncFunction,
-  } = useAsync({ status: initialRequestState });
-
-  useEffect(() => {
-    if (!userName) return;
-    runAsyncFunction(fetchGithubUser, userName);
-  }, [userName]);
+    status, error, data,
+  } = useAsync({ status: initialRequestState }, userName, fetchGithubUser);
 
   switch (status) {
     case REQUEST_STATUS.IDLE:

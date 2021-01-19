@@ -1,7 +1,7 @@
-import { useReducer, useCallback } from 'react';
+import { useReducer, useEffect } from 'react';
 import { REQUEST_STATUS, reducer } from './utils';
 
-const useAsync = (initialState) => {
+const useAsync = (initialState, data, asyncFunction) => {
   const initialReducerState = {
     status: REQUEST_STATUS.IDLE,
     data: null,
@@ -12,12 +12,12 @@ const useAsync = (initialState) => {
     ...initialState,
   });
 
-  const runAsyncFunction = useCallback((fn, data = null) => {
-    dispatch({ status: REQUEST_STATUS.PENDING });
-    fn(data, dispatch);
-  }, []);
+  useEffect(() => {
+    if (!data) return;
+    asyncFunction(data, dispatch);
+  }, [data]);
 
-  return { ...state, runAsyncFunction };
+  return { ...state };
 };
 
 export default useAsync;
