@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, {
+  useState, useEffect, useReducer, useCallback,
+} from 'react';
 
 import UserForm from './components/UserForm';
 import UserFallBack from './components/UserFallBack';
@@ -9,6 +11,13 @@ import REQUEST_STATUS from './utils/utils';
 
 const reducer = (state, action) => {
   switch (action.status) {
+    case REQUEST_STATUS.IDLE:
+      return {
+        status: REQUEST_STATUS.IDLE,
+        data: null,
+        error: null,
+      };
+
     case REQUEST_STATUS.PENDING:
       return {
         status: REQUEST_STATUS.PENDING,
@@ -35,19 +44,44 @@ const reducer = (state, action) => {
   }
 };
 
-const UserInfo = ({ userName }) => {
-  const initialState = {
+const useAsync = (initialState) => {
+  const initialReducerState = {
     status: REQUEST_STATUS.IDLE,
     data: null,
     error: null,
   };
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const { status, data, error } = state;
+  const [state, dispatch] = useReducer(reducer, {
+    ...initialReducerState,
+    ...initialState,
+  });
+
+  const runAsyncFunction = useCallback((fn, data = null) => {
+    dispatch({ status: REQUEST_STATUS.PENDING });
+    fn(data, dispatch);
+  }, []);
+
+  return { ...state, runAsyncFunction };
+};
+
+const UserInfo = ({ userName }) => {
+  // const initialState = {
+  //   status: REQUEST_STATUS.IDLE,
+  //   data: null,
+  //   error: null,
+  // };
+  // const [state, dispatch] = useReducer(reducer, initialState);
+  // const { status, data, error } = state;
+  const initialRequestState = userName ? REQUEST_STATUS.PENDING : REQUEST_STATUS.IDLE;
+
+  const {
+    status, error, data, runAsyncFunction,
+  } = useAsync({ status: initialRequestState });
 
   useEffect(() => {
     if (!userName) return;
-    dispatch({ status: REQUEST_STATUS.PENDING });
-    fetchGithubUser(userName, dispatch);
+    runAsyncFunction(fetchGithubUser, userName);
+    // dispatch({ status: REQUEST_STATUS.PENDING });
+    // fetchGithubUser(userName, dispatch);
   }, [userName]);
 
   switch (status) {

@@ -6,8 +6,12 @@ const BASEURL = 'https://api.github.com/users/';
 
 async function fetchGithubUser(name, dispatch) {
   try {
-    const response = await axios.get(`${BASEURL}${name}`);
-    dispatch({ status: REQUEST_STATUS.RESOLVED, data: response.data });
+    if (name) {
+      const response = await axios.get(`${BASEURL}${name}`);
+      dispatch({ status: REQUEST_STATUS.RESOLVED, data: response.data });
+    } else {
+      dispatch({ status: REQUEST_STATUS.IDLE });
+    }
   } catch (err) {
     dispatch({ status: REQUEST_STATUS.REJECTED, error: 'User not found' });
   }
