@@ -1,41 +1,14 @@
-import React, {
-  useState, useEffect, useReducer, useCallback,
-} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import UserForm from './components/UserForm';
 import UserFallBack from './components/UserFallBack';
 import UserView from './components/UserView';
 
 import fetchGithubUser from './utils/fetchGithubUser';
-import { REQUEST_STATUS, reducer } from './utils/utils';
-
-const useAsync = (initialState) => {
-  const initialReducerState = {
-    status: REQUEST_STATUS.IDLE,
-    data: null,
-    error: null,
-  };
-  const [state, dispatch] = useReducer(reducer, {
-    ...initialReducerState,
-    ...initialState,
-  });
-
-  const runAsyncFunction = useCallback((fn, data = null) => {
-    dispatch({ status: REQUEST_STATUS.PENDING });
-    fn(data, dispatch);
-  }, []);
-
-  return { ...state, runAsyncFunction };
-};
+import { REQUEST_STATUS } from './utils/utils';
+import useAsync from './utils/useAsync';
 
 const UserInfo = ({ userName }) => {
-  // const initialState = {
-  //   status: REQUEST_STATUS.IDLE,
-  //   data: null,
-  //   error: null,
-  // };
-  // const [state, dispatch] = useReducer(reducer, initialState);
-  // const { status, data, error } = state;
   const initialRequestState = userName ? REQUEST_STATUS.PENDING : REQUEST_STATUS.IDLE;
 
   const {
@@ -45,8 +18,6 @@ const UserInfo = ({ userName }) => {
   useEffect(() => {
     if (!userName) return;
     runAsyncFunction(fetchGithubUser, userName);
-    // dispatch({ status: REQUEST_STATUS.PENDING });
-    // fetchGithubUser(userName, dispatch);
   }, [userName]);
 
   switch (status) {
