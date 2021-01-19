@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import axios from 'axios';
 
 import UserForm from './components/UserForm';
 import UserFallBack from './components/UserFallBack';
 import UserView from './components/UserView';
 
-const REQUEST_STATUS = {
-  PENDING: 'pending',
-  RESOLVED: 'resolved',
-  IDLE: 'idle',
-  REJECTED: 'rejected',
-};
+import fetchGithubUser from './utils/fetchGithubUser';
+import REQUEST_STATUS from './utils/utils';
 
 const reducer = (state, action) => {
   switch (action.status) {
@@ -50,20 +45,9 @@ const UserInfo = ({ userName }) => {
   const { status, data, error } = state;
 
   useEffect(() => {
-    const BASEURL = 'https://api.github.com/users/';
-
-    async function fetchGithubUser(name) {
-      try {
-        const response = await axios.get(`${BASEURL}${name}`);
-        dispatch({ status: REQUEST_STATUS.RESOLVED, data: response.data });
-      } catch (err) {
-        dispatch({ status: REQUEST_STATUS.REJECTED, error: 'User not found' });
-      }
-    }
-
     if (!userName) return;
     dispatch({ status: REQUEST_STATUS.PENDING });
-    fetchGithubUser(userName);
+    fetchGithubUser(userName, dispatch);
   }, [userName]);
 
   switch (status) {
