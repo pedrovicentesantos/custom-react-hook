@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import REQUEST_STATUS from './utils';
+import { REQUEST_STATUS } from './utils';
 
 const BASEURL = 'https://api.github.com/users/';
 
