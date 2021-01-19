@@ -13,7 +13,7 @@ const REQUEST_STATUS = {
 };
 
 const reducer = (state, action) => {
-  switch (action.type) {
+  switch (action.status) {
     case REQUEST_STATUS.PENDING:
       return {
         status: REQUEST_STATUS.PENDING,
@@ -36,7 +36,7 @@ const reducer = (state, action) => {
       };
 
     default:
-      throw Error(`Unhandled status: ${action.type}`);
+      throw Error(`Unhandled status: ${action.status}`);
   }
 };
 
@@ -55,14 +55,14 @@ const UserInfo = ({ userName }) => {
     async function fetchGithubUser(name) {
       try {
         const response = await axios.get(`${BASEURL}${name}`);
-        dispatch({ type: REQUEST_STATUS.RESOLVED, data: response.data });
+        dispatch({ status: REQUEST_STATUS.RESOLVED, data: response.data });
       } catch (err) {
-        dispatch({ type: REQUEST_STATUS.REJECTED, error: 'User not found' });
+        dispatch({ status: REQUEST_STATUS.REJECTED, error: 'User not found' });
       }
     }
 
     if (!userName) return;
-    dispatch({ type: REQUEST_STATUS.PENDING });
+    dispatch({ status: REQUEST_STATUS.PENDING });
     fetchGithubUser(userName);
   }, [userName]);
 
