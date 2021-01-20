@@ -1,6 +1,6 @@
 # Projeto
 
-Aplicação em ReactJS que permite consultar informações como número de repositórios e seguidores de qualquer usuário do GitHub. Para isso, consome a [API do GitHub](https://docs.github.com/en/rest).
+Aplicação em ReactJS que permite consultar informações como número de repositórios e seguidores de qualquer usuário do GitHub. Para isso, consome a [API do GitHub](https://docs.github.com/en/rest). O projeto foi realizado durante o evento DoWhile da RocketSeat.
 
 A estilização da aplicação é feita utilizando o [TailwindCSS](https://tailwindcss.com).
 
