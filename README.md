@@ -6,6 +6,10 @@ A estilização da aplicação é feita utilizando o [TailwindCSS](https://tailw
 
 Utiliza um React Hook customizado para lidar com a requisição assíncrona que é feita a API e com a atualização do estado da aplicação.
 
+O deploy da aplicação foi realizado na Vercel e pode ser acessado em:
+
+[https://custom-react-hook.vercel.app](https://custom-react-hook.vercel.app)
+
 ## Instalação
 
 Para testar o projeto localmente, deve-se baixar o repositório e instalar as dependências necessárias para o mesmo funcionar:
