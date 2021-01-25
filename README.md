@@ -15,8 +15,8 @@ O deploy da aplicação foi realizado na Vercel e pode ser acessado em:
 Para testar o projeto localmente, deve-se baixar o repositório e instalar as dependências necessárias para o mesmo funcionar:
 
 ```
-git clone https://github.com/pedrovicentesantos/devradar-omnistack
-cd nome
+git clone https://github.com/pedrovicentesantos/custom-react-hook
+cd custom-react-hook
 npm install
 ```
 
