@@ -25,6 +25,16 @@ const UserView = ({ user }) => (
         <span>Repos</span>
       </div>
     </div>
+    <div className="flex justify-center">
+      <a
+        href={user.html_url}
+        target="_blank"
+        rel="noreferrer"
+        className="transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 ml-2 my-6 px-4 py-3 border rounded bg-gray-700 text-white hover:bg-gray-800 hover:border-gray-400 hover:border-transparent"
+      >
+        Ir para perfil
+      </a>
+    </div>
   </div>
 );
 
